@@ -11,19 +11,19 @@ let answer, noOfGuesses, guessedNumsArr;
 const play = () => {
   const userGuess = guessInput.value;
   if (userGuess < 1 || userGuess > 100 || isNaN(userGuess)) {
-    alert("Please enter a valid number between 1 and 100.");
+    alert("Lütfen 1 ile 100 arasında geçerli bir sayı girin.");
     return;
   }
   guessedNumsArr.push(userGuess);
   noOfGuesses += 1;
   if (userGuess != answer) {
     if (userGuess < answer) {
-      hint.innerHTML = "Too low. Try Again!";
+      hint.innerHTML = "Çok düşük. Tekrar deneyin!";
     } else {
-      hint.innerHTML = "Too high. Try Again!";
+      hint.innerHTML = "Çok yüksek. Tekrar deneyin!";
     }
-    noOfGuessesRef.innerHTML = `<span>No. Of Guesses:</span> ${noOfGuesses}`;
-    guessedNumsRef.innerHTML = `<span>Guessed Numbers are: </span>${guessedNumsArr.join(
+    noOfGuessesRef.innerHTML = `<span>Hayır. Tamin sayısı:</span> ${noOfGuesses}`;
+    guessedNumsRef.innerHTML = `<span>Tahmin edilen sayı: </span>${guessedNumsArr.join(
       ","
     )}`;
     hint.classList.remove("error");
@@ -31,7 +31,7 @@ const play = () => {
       hint.classList.add("error");
     }, 10);
   } else {
-    hint.innerHTML = `Congratulations!<br>The number was <span>${answer}</span>.<br>You guessed the number in <span>${noOfGuesses} </span>tries.`;
+    hint.innerHTML = `Tebrikler!<br>Seçilen sayı <span>${answer}</span>.<br>Sayıyı <span>${noOfGuesses} </span>defada buldun.`;
     hint.classList.add("success");
     game.style.display = "none";
     restartButton.style.display = "block";
@@ -44,8 +44,8 @@ const init = () => {
   console.log(answer);
   noOfGuesses = 0;
   guessedNumsArr = [];
-  noOfGuessesRef.innerHTML = "No. Of Guesses: 0";
-  guessedNumsRef.innerHTML = "Guessed Numbers are: None";
+  noOfGuessesRef.innerHTML = "Hayır. Tamin sayısı: 0";
+  guessedNumsRef.innerHTML = "Tahmin edilen sayılar: None";
   guessInput.value = "";
   hint.classList.remove("success", "error");
 };
