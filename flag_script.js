@@ -27,6 +27,7 @@ const data = [
   "amerika-birleşik-devletleri",
   "uruguay",
   "galler",
+  "türkiye",
 ];
 
 let deviceType = "";
