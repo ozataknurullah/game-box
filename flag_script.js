@@ -1,4 +1,4 @@
-//Initial References
+// Initial References
 let draggableObjects;
 let dropPoints;
 const startButton = document.getElementById("start");
@@ -35,10 +35,10 @@ let initialX = 0,
 let currentElement = "";
 let moveElement = false;
 
-//Detect touch device
+// Detect touch device
 const isTouchDevice = () => {
   try {
-    //We try to create Touch Event (It would fail for desktops and throw error)
+    // Try creating Touch Event (It would fail for desktops and throw an error)
     document.createEvent("TouchEvent");
     deviceType = "touch";
     return true;
@@ -50,37 +50,37 @@ const isTouchDevice = () => {
 
 let count = 0;
 
-//Random value from Array
+// Random value from Array
 const randomValueGenerator = () => {
   return data[Math.floor(Math.random() * data.length)];
 };
 
-//Win Game Display
+// Win Game Display
 const stopGame = () => {
   controls.classList.remove("hide");
   startButton.classList.remove("hide");
 };
 
-//Drag & Drop Functions
+// Drag & Drop Functions
 function dragStart(e) {
   if (isTouchDevice()) {
     initialX = e.touches[0].clientX;
     initialY = e.touches[0].clientY;
-    //Start movement for touch
+    // Start movement for touch
     moveElement = true;
     currentElement = e.target;
   } else {
-    //For non touch devices set data to be transfered
+    // For non-touch devices set data to be transferred
     e.dataTransfer.setData("text", e.target.id);
   }
 }
 
-//Events fired on the drop target
+// Events fired on the drop target
 function dragOver(e) {
   e.preventDefault();
 }
 
-//For touchscreen movement
+// For touchscreen movement
 const touchMove = (e) => {
   if (moveElement) {
     e.preventDefault();
@@ -100,14 +100,14 @@ const touchMove = (e) => {
 
 const drop = (e) => {
   e.preventDefault();
-  //For touch screen
+  // For touch screen
   if (isTouchDevice()) {
     moveElement = false;
-    //Select country name div using the custom attribute
+    // Select country name div using the custom attribute
     const currentDrop = document.querySelector(`div[data-id='${e.target.id}']`);
-    //Get boundaries of div
+    // Get boundaries of div
     const currentDropBound = currentDrop.getBoundingClientRect();
-    //if the position of flag falls inside the bounds of the countru name
+    // If the position of the flag falls inside the bounds of the country name
     if (
       initialX >= currentDropBound.left &&
       initialX <= currentDropBound.right &&
@@ -115,57 +115,57 @@ const drop = (e) => {
       initialY <= currentDropBound.bottom
     ) {
       currentDrop.classList.add("dropped");
-      //hide actual image
+      // Hide actual image
       currentElement.classList.add("hide");
       currentDrop.innerHTML = ``;
-      //Insert new img element
+      // Insert new img element
       currentDrop.insertAdjacentHTML(
         "afterbegin",
-        `<img src= "${currentElement.id}.png">`
+        `<img src= "img/${currentElement.id}.png">`
       );
       count += 1;
     }
   } else {
-    //Access data
+    // Access data
     const draggedElementData = e.dataTransfer.getData("text");
-    //Get custom attribute value
+    // Get custom attribute value
     const droppableElementData = e.target.getAttribute("data-id");
     if (draggedElementData === droppableElementData) {
       const draggedElement = document.getElementById(draggedElementData);
-      //dropped class
+      // Dropped class
       e.target.classList.add("dropped");
-      //hide current img
+      // Hide current img
       draggedElement.classList.add("hide");
-      //draggable set to false
+      // Draggable set to false
       draggedElement.setAttribute("draggable", "false");
       e.target.innerHTML = ``;
-      //insert new img
+      // Insert new img
       e.target.insertAdjacentHTML(
         "afterbegin",
-        `<img src="${draggedElementData}.png">`
+        `<img src="img/${draggedElementData}.png">`
       );
       count += 1;
     }
   }
-  //Win
+  // Win
   if (count == 3) {
     result.innerText = `You Won!`;
     stopGame();
   }
 };
 
-//Creates flags and countries
+// Creates flags and countries
 const creator = () => {
   dragContainer.innerHTML = "";
   dropContainer.innerHTML = "";
   let randomData = [];
-  //for string random values in array
+  // for string random values in array
   for (let i = 1; i <= 3; i++) {
     let randomValue = randomValueGenerator();
     if (!randomData.includes(randomValue)) {
       randomData.push(randomValue);
     } else {
-      //If value already exists then decrement i by 1
+      // If value already exists then decrement i by 1
       i -= 1;
     }
   }
@@ -176,10 +176,10 @@ const creator = () => {
     if (isTouchDevice()) {
       flagDiv.style.position = "absolute";
     }
-    flagDiv.innerHTML = `<img src="${i}.png" id="${i}">`;
+    flagDiv.innerHTML = `<img src="img/${i}.png" id="${i}">`;
     dragContainer.appendChild(flagDiv);
   }
-  //Sort the array randomly before creating country divs
+  // Sort the array randomly before creating country divs
   randomData = randomData.sort(() => 0.5 - Math.random());
   for (let i of randomData) {
     const countryDiv = document.createElement("div");
@@ -191,23 +191,23 @@ const creator = () => {
   }
 };
 
-//Start Game
+// Start Game
 startButton.addEventListener(
   "click",
   (startGame = async () => {
     currentElement = "";
     controls.classList.add("hide");
     startButton.classList.add("hide");
-    //This will wait for creator to create the images and then move forward
+    // This will wait for creator to create the images and then move forward
     await creator();
     count = 0;
     dropPoints = document.querySelectorAll(".countries");
     draggableObjects = document.querySelectorAll(".draggable-image");
 
-    //Events
+    // Events
     draggableObjects.forEach((element) => {
       element.addEventListener("dragstart", dragStart);
-      //for touch screen
+      // For touch screen
       element.addEventListener("touchstart", dragStart);
       element.addEventListener("touchend", drop);
       element.addEventListener("touchmove", touchMove);
@@ -218,3 +218,5 @@ startButton.addEventListener(
     });
   })
 );
+
+
