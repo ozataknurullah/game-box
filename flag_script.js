@@ -23,7 +23,7 @@ const data = [
   "ispanya",
   "sri-lanka",
   "isveç",
-  "isvicre",
+  "isviçre",
   "amerika-birleşik-devletleri",
   "uruguay",
   "galler",
@@ -149,7 +149,7 @@ const drop = (e) => {
   }
   // Win
   if (count == 3) {
-    result.innerText = `You Won!`;
+    result.innerText = `Kazandınız!`;
     stopGame();
   }
 };
