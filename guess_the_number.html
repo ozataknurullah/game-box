@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guess The Number Game</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="guess_style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Guess The Number Game</h1>
+    <div id="game">
+        <h3>
+          1 ile 100 arasında bir sayı tuttum.<br />
+          Tahmin et bakalım?
+        </h3>
+        <div class="input-wrapper">
+          <input type="number" placeholder="00" id="guess" />
+          <button id="check-btn">Tahmin</button>
+        </div>
+        <p id="no-of-guesses">Hayır. Tahmin sayısı: 0</p>
+        <p id="guessed-nums">Tahminler: Hiçbiri</p>
+      </div>
+      <button id="restart">Yeniden Başlat</button>
+      <div class="result">
+        <div id="hint"></div>
+      </div>
+    </div>
+  </div>
+  <script src="guess_script.js"></script>
+</body>
+</html>
